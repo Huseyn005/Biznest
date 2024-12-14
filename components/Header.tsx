@@ -17,7 +17,7 @@ export default function Header() {
               Biznest
             </Link>
             <Button className="bg-[#FFE600] hover:bg-[#FFD000] text-black">
-              Katalog
+              Kataloq
             </Button>
           </div>
 
