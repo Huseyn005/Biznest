@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { notFound } from 'next/navigation';
 
 const startups = [
@@ -24,8 +25,11 @@ const startups = [
     },
 ];
 
-export default function StartupPage({ params }: { params: { id: string } }) {
-    const startup = startups.find(s => s.id === params.id);
+export default function StartupPage() {
+    const router = useRouter();
+    const { id } = router.query; // Get the dynamic "id" from the URL
+
+    const startup = startups.find(s => s.id === id);
 
     // If no startup is found, trigger the 404 page
     if (!startup) {
@@ -34,10 +38,10 @@ export default function StartupPage({ params }: { params: { id: string } }) {
 
     return (
         <div className="bg-white p-8 rounded-lg shadow-md">
-            <h1 className="text-4xl font-bold mb-4">{startup.name}</h1>
-            <p className="text-xl mb-8">{startup.description}</p>
-            <h2 className="text-2xl font-semibold mb-4">About {startup.name}</h2>
-            <p className="text-gray-700">{startup.fullDescription}</p>
+            <h1 className="text-4xl font-bold mb-4">{startup?.name}</h1>
+            <p className="text-xl mb-8">{startup?.description}</p>
+            <h2 className="text-2xl font-semibold mb-4">About {startup?.name}</h2>
+            <p className="text-gray-700">{startup?.fullDescription}</p>
             <button className="mt-8 bg-yellow-500 text-black font-semibold py-2 px-4 rounded hover:bg-yellow-600 transition-colors duration-300">Contact Startup</button>
         </div>
     );
