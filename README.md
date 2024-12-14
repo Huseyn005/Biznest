@@ -46,7 +46,7 @@ Customizable Filters: Search for assets by category, location, price, and more.
 Deployment
 BizNest is deployed on Vercel. You can access the live application here:
 
-Visit BizNest: biznest.vercel.app
+Visit BizNest: https://biznest.vercel.app
 
 Learn More
 To learn more about how to use BizNest, check out the following resources:
