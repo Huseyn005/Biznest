@@ -24,17 +24,22 @@ const startups = [
     },
 ];
 
+// Correctly define the Params type for dynamic routes
 interface Params {
     id: string;
 }
 
+// Define the page component using the Params interface
 export default function StartupPage({ params }: { params: Params }) {
+    // Find the startup by ID from the dynamic route params
     const startup = startups.find(s => s.id === params.id);
 
+    // If no startup is found, trigger the 404 page
     if (!startup) {
         notFound(); // Triggers 404 if startup is not found
     }
 
+    // Render the startup details if found
     return (
         <div className="bg-white p-8 rounded-lg shadow-md">
             <h1 className="text-4xl font-bold mb-4">{startup.name}</h1>
