@@ -26,6 +26,6 @@ export default function Footer() {
           <p>&copy; 2024 Biznest. All rights reserved.</p>
         </div>
       </div>
-    </footer>
-  )
+    </footer>
+  )
 }
