@@ -1,0 +1,62 @@
+'use client'
+
+import Link from 'next/link'
+import { Menu, Search, MapPin, Heart, MessageCircle } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+
+export default function Header() {
+  return (
+    <header className="bg-white border-b">
+      <div className="container mx-auto px-4 py-3">
+        <div className="flex items-center gap-4">
+          {/* Left section */}
+          <div className="flex items-center gap-4">
+            <Menu className="h-6 w-6" />
+            <Link href="/" className="text-2xl font-bold text-[#FFE600]">
+              Biznest
+            </Link>
+            <Button className="bg-[#FFE600] hover:bg-[#FFD000] text-black">
+              Katalog
+            </Button>
+          </div>
+
+          {/* Search section */}
+          <div className="flex-1 max-w-2xl">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <Input 
+                className="w-full pl-10" 
+                placeholder="Əşya və ya xidmət axtarışı"
+              />
+            </div>
+          </div>
+
+          {/* Right section */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-gray-600">
+              <MapPin className="h-4 w-4" />
+              <span>Şəhər</span>
+            </div>
+            <Button variant="default" className="bg-[#FFE600] hover:bg-[#FFD000] text-black">
+              Tap
+            </Button>
+            <Button variant="ghost" className="text-gray-600">
+              <Heart className="h-5 w-5" />
+            </Button>
+            <Button variant="ghost" className="text-gray-600">
+              <MessageCircle className="h-5 w-5" />
+            </Button>
+            <Button variant="default" className="bg-yellow-500 hover:bg-yellow-600 text-black">
+              Elan+
+            </Button>
+            <Button variant="outline" className="text-black border-black">
+              Giriş
+            </Button>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+
