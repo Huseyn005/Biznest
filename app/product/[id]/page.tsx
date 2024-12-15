@@ -205,19 +205,23 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
             {/* Other Products */}
             <div className="mt-12">
-                <h2 className="text-2xl font-bold mb-6 text-center">Digər Elanlar</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <h3 className="text-2xl font-semibold mb-6 text-center">Digər Elanlar</h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {otherProducts.map(otherProduct => (
-                        <Link key={otherProduct.id} href={`/product/${otherProduct.id}`} className="block">
-                            <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-                                <Image src={otherProduct.image} alt={otherProduct.name} width={300} height={200} className="w-full h-48 object-cover" />
-                                <div className="p-4">
-                                    <h3 className="font-semibold text-lg mb-2 truncate">{otherProduct.name}</h3>
-                                    <p className="text-gray-600 mb-2 truncate">{otherProduct.location}</p>
-                                    <p className="font-bold">{otherProduct.price} AZN</p>
-                                </div>
+                        <div key={otherProduct.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                            <Image
+                                src={otherProduct.image}
+                                alt={otherProduct.name}
+                                width={500} // Same width as the main product image
+                                height={300} // Same height ratio
+                                className="w-full h-[200px] object-cover"
+                            />
+                            <div className="p-4">
+                                <h4 className="text-lg font-semibold">{otherProduct.name}</h4>
+                                <p className="text-gray-500">{otherProduct.location}</p>
+                                <p className="text-gray-700">{otherProduct.price} AZN</p>
                             </div>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>
