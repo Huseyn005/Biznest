@@ -1,11 +1,21 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, Search, MapPin, Heart, MessageCircle } from 'lucide-react'
+import { Menu, Search, MapPin, Heart, MessageCircle, ChevronDown } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export default function Header() {
+  const [city, setCity] = useState("Şəhər")
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const cities = ["Baku", "Ganja", "Sumqayit", "Shamakhi", "Gabala"]
+
+  const handleCitySelect = (selectedCity) => {
+    setCity(selectedCity)
+    setDropdownOpen(false)
+  }
+
   return (
     <header className="bg-white border-b">
       <div className="container mx-auto px-4 py-3">
@@ -34,9 +44,29 @@ export default function Header() {
 
           {/* Right section */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-gray-600">
-              <MapPin className="h-4 w-4" />
-              <span>Şəhər</span>
+            {/* City Dropdown */}
+            <div className="relative">
+              <div 
+                className="flex items-center gap-2 text-gray-600 cursor-pointer" 
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                <MapPin className="h-4 w-4" />
+                <span>{city}</span>
+                <ChevronDown className="h-4 w-4" />
+              </div>
+              {dropdownOpen && (
+                <div className="absolute mt-2 bg-white border rounded shadow-lg z-10">
+                  {cities.map((cityOption) => (
+                    <div 
+                      key={cityOption} 
+                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                      onClick={() => handleCitySelect(cityOption)}
+                    >
+                      {cityOption}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <Button variant="default" className="bg-[#FFE600] hover:bg-[#FFD000] text-black">
               Tap
