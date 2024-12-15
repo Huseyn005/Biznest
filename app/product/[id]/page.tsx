@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { MapPin, Phone, Mail, Calendar } from 'lucide-react';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
@@ -72,7 +71,7 @@ const products = [
 
 const mapContainerStyle = {
     width: '100%',
-    height: '400px',
+    height: '300px',
 };
 
 // Updated Product type definition with all required fields
@@ -91,7 +90,13 @@ interface Product {
     image: string;
 }
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+interface ProductPageProps {
+    params: {
+        id: string;
+    };
+}
+
+export default function ProductPage({ params }: ProductPageProps) {
     const [isMounted, setIsMounted] = useState(false);
 
     const [product, setProduct] = useState<Product | null>(null);
@@ -101,7 +106,6 @@ export default function ProductPage({ params }: { params: { id: string } }) {
         if (params.id) {
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
-                // Ensure that isStore is always a boolean
                 foundProduct.isStore = foundProduct.isStore ?? false; // Default to false if undefined
                 setProduct(foundProduct);
                 setOtherProducts(products.filter(p => p.id !== params.id).slice(0, 4));
@@ -193,7 +197,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 </div>
 
                 {/* Map Section - Full Width Below */}
-                <div className="md:col-span-3 h-[500px] rounded-lg overflow-hidden mb-6">
+                <div className="md:col-span-3 h-[300px] rounded-lg overflow-hidden mb-6">
                     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                         <GoogleMap mapContainerStyle={mapContainerStyle} center={product.coordinates} zoom={15}>
                             <MarkerF position={product.coordinates} />
