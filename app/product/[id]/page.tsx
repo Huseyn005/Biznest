@@ -32,6 +32,7 @@ const products = [
         price: 16500,
         image: 'https://bzns.az/storage/announcements/big/sCw5GbkMkibHAI7BVyxXCZK8VWagbs3wx8lbbNb3.jpg',
         isPremium: true,
+        isStore: false, // Explicitly set isStore to false
         description: 'İşlək vəziyyətdə olan bərbərxana satılır. Tam təchizatlı, müştəri bazası olan.',
         location: 'Bakı şəhəri, Nərimanov rayonu',
         coordinates: { lat: 40.4093, lng: 49.8671 },
@@ -59,6 +60,7 @@ const products = [
         price: 66000,
         image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/f8/88/d2/getlstd-property-photo.jpg?w=1200&h=-1&s=1',
         isPremium: true,
+        isStore: false, // Explicitly set isStore to false
         description: 'İşlək vəziyyətdə olan bilyard salonu satılır. 5 stol, bar və istirahət guşəsi mövcuddur.',
         location: 'Bakı şəhəri, Nəsimi rayonu',
         coordinates: { lat: 40.3893, lng: 49.8519 },
@@ -74,17 +76,34 @@ const mapContainerStyle = {
     height: '300px',
 };
 
+// Updated Product type definition with all required fields
+interface Product {
+    id: string;
+    name: string;
+    price: number;
+    description: string;
+    location: string;
+    phone: string;
+    email: string;
+    postedDate: string;
+    coordinates: { lat: number; lng: number };
+    isPremium: boolean;
+    isStore: boolean;
+    image: string;
+}
+
 export default function ProductPage({ params }: { params: { id: string } }) {
     const [isMounted, setIsMounted] = useState(false);
-    const mapRef = useRef<HTMLDivElement>(null);
 
-    const [product, setProduct] = useState<any | null>(null);
-    const [otherProducts, setOtherProducts] = useState<any[]>([]);
+    const [product, setProduct] = useState<Product | null>(null);
+    const [otherProducts, setOtherProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         if (params.id) {
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
+                // Ensure that isStore is always a boolean
+                foundProduct.isStore = foundProduct.isStore ?? false; // Default to false if undefined
                 setProduct(foundProduct);
                 setOtherProducts(products.filter(p => p.id !== params.id).slice(0, 4));
             } else {
