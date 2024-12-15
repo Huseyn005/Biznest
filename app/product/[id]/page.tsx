@@ -72,7 +72,7 @@ const products = [
 
 const mapContainerStyle = {
     width: '100%',
-    height: '300px',
+    height: '400px',
 };
 
 // Updated Product type definition with all required fields
@@ -193,7 +193,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                 </div>
 
                 {/* Map Section - Full Width Below */}
-                <div className="md:col-span-3 h-[300px] rounded-lg overflow-hidden mb-6">
+                <div className="md:col-span-3 h-[500px] rounded-lg overflow-hidden mb-6">
                     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                         <GoogleMap mapContainerStyle={mapContainerStyle} center={product.coordinates} zoom={15}>
                             <MarkerF position={product.coordinates} />
