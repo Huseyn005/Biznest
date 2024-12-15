@@ -123,11 +123,6 @@ const products = [
     },
 ];
 
-const mapContainerStyle = {
-    width: '100%',
-    height: '300px',
-};
-
 // TypeScript type for product
 interface Product {
     id: string;
@@ -159,7 +154,6 @@ export default function ProductPage({ params }: ProductPageProps) {
         if (params.id) {
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
-                foundProduct.isStore = foundProduct.isStore ?? false; // Default to false if undefined
                 setProduct(foundProduct);
                 setOtherProducts(products.filter(p => p.id !== params.id).slice(0, 4));
             } else {
@@ -170,7 +164,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     }, [params.id]);
 
     if (!isMounted || !product) {
-        return null; // Optionally, return a loading indicator
+        return null; // Optionally, show a loading indicator
     }
 
     return (
@@ -183,69 +177,48 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* Left Column - Product Image and Description */}
                 <div className="md:col-span-2">
                     <div className="relative">
-                        <Image src={product.image} alt={product.name} width={500} height={400} className="rounded-lg object-cover w-[800px] h-[450px] mb-6" />
+                        <Image src={product.image} alt={product.name} width={800} height={450} className="rounded-lg object-cover w-full h-[450px] mb-6" />
                     </div>
-                    <div className="mt-6">
-                        <h2 className="text-2xl font-semibold mb-2 text-center">Qiymət: {product.price} AZN</h2>
-                        <p className="text-gray-700 mb-6 text-center">{product.description}</p>
+                    <div className="mt-6 text-center">
+                        <h2 className="text-2xl font-semibold mb-2">Qiymət: {product.price} AZN</h2>
+                        <p className="text-gray-700 mb-6">{product.description}</p>
                     </div>
                 </div>
 
-                {/* Right Column - Contact Information and Features */}
+                {/* Right Column - Contact Information */}
                 <div>
-                    <Card className="mb-6 bg-white shadow-lg rounded-lg overflow-hidden">
+                    <Card className="mb-6 shadow-lg rounded-lg">
                         <CardContent className="p-6">
-                            <h3 className="text-xl font-semibold mb-6 text-center text-gray-800">Əlaqə Məlumatları</h3>
+                            <h3 className="text-xl font-semibold mb-6 text-center">Əlaqə Məlumatları</h3>
                             <div className="space-y-4">
                                 <div className="flex items-center space-x-3">
                                     <MapPin className="h-5 w-5 text-gray-600" />
-                                    <div className="flex-1">
-                                        <span className="font-medium">Ünvan:</span>
-                                        <p className="text-gray-700">{product.location}</p>
-                                    </div>
+                                    <span className="font-medium">{product.location}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <Phone className="h-5 w-5 text-gray-600" />
-                                    <div className="flex-1">
-                                        <span className="font-medium">Telefon:</span>
-                                        <p className="text-gray-700">{product.phone}</p>
-                                    </div>
+                                    <span className="font-medium">{product.phone}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <Mail className="h-5 w-5 text-gray-600" />
-                                    <div className="flex-1">
-                                        <span className="font-medium">E-poçt:</span>
-                                        <p className="text-gray-700">{product.email}</p>
-                                    </div>
+                                    <span className="font-medium">{product.email}</span>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <Calendar className="h-5 w-5 text-gray-600" />
-                                    <div className="flex-1">
-                                        <span className="font-medium">Elan tarixi:</span>
-                                        <p className="text-gray-700">{product.postedDate}</p>
-                                    </div>
+                                    <span className="font-medium">{product.postedDate}</span>
                                 </div>
                             </div>
                             <div className="mt-6">
-                                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200">Əlaqə saxla</Button>
+                                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">Əlaqə saxla</Button>
                             </div>
                         </CardContent>
                     </Card>
-
-                    {/* Xüsusiyyətlər */}
-                    <div className="mb-6">
-                        <h3 className="text-xl font-semibold mb-2 text-center">Xüsusiyyətlər</h3>
-                        <ul className="list-disc list-inside space-y-1 text-center">
-                            <li>{product.isPremium ? 'Premium Elan' : 'Standart Elan'}</li>
-                            <li>{product.isStore ? 'Mağaza' : 'Fərdi Satıcı'}</li>
-                        </ul>
-                    </div>
                 </div>
 
-                {/* Map Section - Full Width Below */}
+                {/* Map Section */}
                 <div className="md:col-span-3 h-[300px] rounded-lg overflow-hidden mb-6">
                     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
-                        <GoogleMap mapContainerStyle={mapContainerStyle} center={product.coordinates} zoom={15}>
+                        <GoogleMap mapContainerStyle={{ width: '100%', height: '100%' }} center={product.coordinates} zoom={15}>
                             <MarkerF position={product.coordinates} />
                         </GoogleMap>
                     </LoadScript>
@@ -256,13 +229,13 @@ export default function ProductPage({ params }: ProductPageProps) {
             <div className="mt-12">
                 <h3 className="text-2xl font-semibold mb-6 text-center">Digər Elanlar</h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {otherProducts.map(otherProduct => (
-                        <div key={otherProduct.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                            <Image src={otherProduct.image} alt={otherProduct.name} width={500} height={300} className="w-full h-[200px] object-cover" />
+                    {otherProducts.map(other => (
+                        <div key={other.id} className="border rounded-lg shadow hover:shadow-lg transition">
+                            <Image src={other.image} alt={other.name} width={500} height={300} className="w-full h-[200px] object-cover" />
                             <div className="p-4">
-                                <h4 className="text-lg font-semibold">{otherProduct.name}</h4>
-                                <p className="text-gray-500">{otherProduct.location}</p>
-                                <p className="text-gray-700">{otherProduct.price} AZN</p>
+                                <h4 className="text-lg font-semibold">{other.name}</h4>
+                                <p className="text-gray-500">{other.location}</p>
+                                <p className="text-gray-700">{other.price} AZN</p>
                             </div>
                         </div>
                     ))}
