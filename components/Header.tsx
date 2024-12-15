@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 export default function Header() {
   const [city, setCity] = useState("Şəhər")
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const cities = ["Baku", "Ganja", "Sumqayit", "Shamakhi", "Gabala"]
+  const cities = ["Bakı", "Gancə", "Sumqayıt", "Şamaxı", "Qəbələ"]
 
   const handleCitySelect = (selectedCity) => {
     setCity(selectedCity)
