@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 
-// This would typically come from an API or database
 const products = [
     {
         id: '1',
@@ -26,47 +25,102 @@ const products = [
     },
     {
         id: '2',
-        name: 'Bərbərxana',
-        price: 16500,
-        image: 'https://bzns.az/storage/announcements/big/sCw5GbkMkibHAI7BVyxXCZK8VWagbs3wx8lbbNb3.jpg',
-        isPremium: true,
-        isStore: false, // Explicitly set isStore to false
-        description: 'İşlək vəziyyətdə olan bərbərxana satılır. Tam təchizatlı, müştəri bazası olan.',
+        name: 'Təbii Şirə Dükkanı',
+        price: 24999,
+        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        isPremium: false,
+        isStore: true,
+        description: 'Təbii şirə və təzə meyvə şirəsi dükkanı satılır. Yaxın zamanda fəaliyyətə başlayacaq.',
         location: 'Bakı şəhəri, Nərimanov rayonu',
-        coordinates: { lat: 40.4093, lng: 49.8671 },
-        phone: '+994 50 987 65 43',
-        email: 'info@berbershop.az',
-        postedDate: '2023-06-14',
+        coordinates: { lat: 40.385, lng: 49.8587 },
+        phone: '+994 55 987 65 43',
+        email: 'info@tebiishirə.az',
+        postedDate: '2023-07-10',
     },
     {
         id: '3',
-        name: 'Yeni Açılmış Tədris Mərkəzi Satılır',
-        price: 120000,
-        image: 'https://avatars.mds.yandex.net/get-altay/4392922/2a0000018296e1783fff9171cdf0f056a2ad/orig',
+        name: 'Paltar Yuyulma Maşını Servisi',
+        price: 15999,
+        image: 'https://bzns.az/storage/announcements/preview/eVXEX1rYhHhNBmuFqazHwe1vQ9GQREjo5D6D1wRv.jpg',
         isPremium: true,
         isStore: true,
-        description: 'Tam təchizatlı, yeni açılmış tədris mərkəzi satılır. Hazır müştəri bazası və peşəkar müəllim heyəti.',
-        location: 'Bakı şəhəri, Xətai rayonu',
-        coordinates: { lat: 40.3872, lng: 49.9503 },
-        phone: '+994 70 555 55 55',
-        email: 'info@tedrismarkezi.az',
-        postedDate: '2023-06-20',
+        description: 'Paltar yuyulma maşını servisi. Hər növ təmir işləri mövcuddur.',
+        location: 'Bakı şəhəri, Binəqədi rayonu',
+        coordinates: { lat: 40.4706, lng: 49.8924 },
+        phone: '+994 50 123 45 67',
+        email: 'info@paltaryuyulmaservisi.az',
+        postedDate: '2023-08-05',
     },
     {
         id: '4',
-        name: 'Bilyard Salonu',
-        price: 66000,
-        image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/f8/88/d2/getlstd-property-photo.jpg?w=1200&h=-1&s=1',
-        isPremium: true,
-        isStore: false, // Explicitly set isStore to false
-        description: 'İşlək vəziyyətdə olan bilyard salonu satılır. 5 stol, bar və istirahət guşəsi mövcuddur.',
-        location: 'Bakı şəhəri, Nəsimi rayonu',
-        coordinates: { lat: 40.3893, lng: 49.8519 },
-        phone: '+994 50 999 99 99',
-        email: 'info@bilyardsalonu.az',
-        postedDate: '2023-06-18',
+        name: 'Büro Ləvazimatları Mağazası',
+        price: 17999,
+        image: 'https://bzns.az/storage/announcements/preview/5G9V97XE4C92t8nM1WV4eZlNVXY34foHjOEkzEZa.jpg',
+        isPremium: false,
+        isStore: true,
+        description: 'Büro ləvazimatları mağazası, ofis avadanlıqları, dəftərlər, kağızlar və daha çox.',
+        location: 'Bakı şəhəri, Xətai rayonu',
+        coordinates: { lat: 40.378, lng: 49.8501 },
+        phone: '+994 50 789 12 34',
+        email: 'info@buroaz.az',
+        postedDate: '2023-08-15',
     },
-    // Add more products as needed
+    {
+        id: '5',
+        name: 'Texnika və Elektronika Mağazası',
+        price: 39999,
+        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        isPremium: true,
+        isStore: true,
+        description: 'Texnika və elektronika mağazası, telefonlar, televizorlar, kompüterlər və s.',
+        location: 'Bakı şəhəri, Nəsimi rayonu',
+        coordinates: { lat: 40.383, lng: 49.8612 },
+        phone: '+994 55 334 56 78',
+        email: 'info@texnikaelektronika.az',
+        postedDate: '2023-09-01',
+    },
+    {
+        id: '6',
+        name: 'Restoran və Kafeteriya',
+        price: 74999,
+        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        isPremium: true,
+        isStore: true,
+        description: 'Restoran və kafeteriya fəaliyyətə başlamaq üçün satışa çıxarılıb.',
+        location: 'Bakı şəhəri, Sabunçu rayonu',
+        coordinates: { lat: 40.5452, lng: 49.941 },
+        phone: '+994 50 654 78 90',
+        email: 'info@restorankafeteriya.az',
+        postedDate: '2023-09-20',
+    },
+    {
+        id: '7',
+        name: 'Avtomobil Satisı',
+        price: 18999,
+        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        isPremium: false,
+        isStore: false,
+        description: 'Satışda olan avtomobillər, təmirli və yaxşı vəziyyətdə.',
+        location: 'Bakı şəhəri, Suraxanı rayonu',
+        coordinates: { lat: 40.3757, lng: 49.8387 },
+        phone: '+994 50 123 12 34',
+        email: 'info@avtomobilsatisi.az',
+        postedDate: '2023-10-01',
+    },
+    {
+        id: '8',
+        name: 'Gözəllik və Sağlamlıq Mərkəzi',
+        price: 29999,
+        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        isPremium: false,
+        isStore: true,
+        description: 'Gözəllik və sağlamlıq mərkəzi, spa, masaj və digər xidmətlər.',
+        location: 'Bakı şəhəri, Səbail rayonu',
+        coordinates: { lat: 40.3892, lng: 49.8767 },
+        phone: '+994 50 987 65 43',
+        email: 'info@gozelliksağlamlıq.az',
+        postedDate: '2023-10-15',
+    },
 ];
 
 const mapContainerStyle = {
@@ -74,7 +128,7 @@ const mapContainerStyle = {
     height: '300px',
 };
 
-// Updated Product type definition with all required fields
+// TypeScript type for product
 interface Product {
     id: string;
     name: string;
@@ -98,7 +152,6 @@ interface ProductPageProps {
 
 export default function ProductPage({ params }: ProductPageProps) {
     const [isMounted, setIsMounted] = useState(false);
-
     const [product, setProduct] = useState<Product | null>(null);
     const [otherProducts, setOtherProducts] = useState<Product[]>([]);
 
@@ -130,13 +183,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* Left Column - Product Image and Description */}
                 <div className="md:col-span-2">
                     <div className="relative">
-                        <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={500} // Reduced the width from 600 to 500
-                            height={400} // Keeping the height same to make them consistent
-                            className="rounded-lg object-cover w-[800px] h-[450px] mb-6"
-                        />
+                        <Image src={product.image} alt={product.name} width={500} height={400} className="rounded-lg object-cover w-[800px] h-[450px] mb-6" />
                     </div>
                     <div className="mt-6">
                         <h2 className="text-2xl font-semibold mb-2 text-center">Qiymət: {product.price} AZN</h2>
@@ -146,7 +193,6 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                 {/* Right Column - Contact Information and Features */}
                 <div>
-                    {/* Əlaqə Məlumatları */}
                     <Card className="mb-6 bg-white shadow-lg rounded-lg overflow-hidden">
                         <CardContent className="p-6">
                             <h3 className="text-xl font-semibold mb-6 text-center text-gray-800">Əlaqə Məlumatları</h3>
@@ -212,13 +258,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {otherProducts.map(otherProduct => (
                         <div key={otherProduct.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                            <Image
-                                src={otherProduct.image}
-                                alt={otherProduct.name}
-                                width={500} // Same width as the main product image
-                                height={300} // Same height ratio
-                                className="w-full h-[200px] object-cover"
-                            />
+                            <Image src={otherProduct.image} alt={otherProduct.name} width={500} height={300} className="w-full h-[200px] object-cover" />
                             <div className="p-4">
                                 <h4 className="text-lg font-semibold">{otherProduct.name}</h4>
                                 <p className="text-gray-500">{otherProduct.location}</p>
