@@ -3,11 +3,13 @@
 import { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import scoreimage from '@/components/score.png';
 import { MapPin, Phone, Mail, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api';
 
+// This would typically come from an API or database
 const products = [
     {
         id: '1',
@@ -17,7 +19,7 @@ const products = [
         isPremium: true,
         isStore: true,
         description: 'Tam təmirli, işlək vəziyyətdə olan biznes satılır. Alt mərtəbədə 3 boxlu avtoyuma, üst mərtəbədə isə çay evi yerləşir.',
-        location: 'Bakı şəhəri, Yasamal rayonu',
+        location: 'Bakı şəhəri, Yasamal',
         coordinates: { lat: 40.3776, lng: 49.8925 },
         phone: '+994 55 123 45 67',
         email: 'info@altimoyka.az',
@@ -25,105 +27,55 @@ const products = [
     },
     {
         id: '2',
-        name: 'Təbii Şirə Dükkanı',
-        price: 24999,
-        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
-        isPremium: false,
-        isStore: true,
-        description: 'Təbii şirə və təzə meyvə şirəsi dükkanı satılır. Yaxın zamanda fəaliyyətə başlayacaq.',
-        location: 'Bakı şəhəri, Nərimanov rayonu',
-        coordinates: { lat: 40.385, lng: 49.8587 },
-        phone: '+994 55 987 65 43',
-        email: 'info@tebiishirə.az',
-        postedDate: '2023-07-10',
+        name: 'Bərbərxana',
+        price: 16500,
+        image: 'https://bzns.az/storage/announcements/big/sCw5GbkMkibHAI7BVyxXCZK8VWagbs3wx8lbbNb3.jpg',
+        isPremium: true,
+        isStore: false, // Explicitly set isStore to false
+        description: 'İşlək vəziyyətdə olan bərbərxana satılır. Tam təchizatlı, müştəri bazası olan.',
+        location: 'Bakı şəhəri, Nərimanov',
+        coordinates: { lat: 40.4093, lng: 49.8671 },
+        phone: '+994 50 987 65 43',
+        email: 'info@berbershop.az',
+        postedDate: '2023-06-14',
     },
     {
         id: '3',
-        name: 'Paltar Yuyulma Maşını Servisi',
-        price: 15999,
-        image: 'https://bzns.az/storage/announcements/preview/eVXEX1rYhHhNBmuFqazHwe1vQ9GQREjo5D6D1wRv.jpg',
+        name: 'Yeni Açılmış Tədris Mərkəzi Satılır',
+        price: 120000,
+        image: 'https://avatars.mds.yandex.net/get-altay/4392922/2a0000018296e1783fff9171cdf0f056a2ad/orig',
         isPremium: true,
         isStore: true,
-        description: 'Paltar yuyulma maşını servisi. Hər növ təmir işləri mövcuddur.',
-        location: 'Bakı şəhəri, Binəqədi rayonu',
-        coordinates: { lat: 40.4706, lng: 49.8924 },
-        phone: '+994 50 123 45 67',
-        email: 'info@paltaryuyulmaservisi.az',
-        postedDate: '2023-08-05',
+        description: 'Tam təchizatlı, yeni açılmış tədris mərkəzi satılır. Hazır müştəri bazası və peşəkar müəllim heyəti.',
+        location: 'Bakı şəhəri, Xətai',
+        coordinates: { lat: 40.3872, lng: 49.9503 },
+        phone: '+994 70 555 55 55',
+        email: 'info@tedrismarkezi.az',
+        postedDate: '2023-06-20',
     },
     {
         id: '4',
-        name: 'Büro Ləvazimatları Mağazası',
-        price: 17999,
-        image: 'https://bzns.az/storage/announcements/preview/5G9V97XE4C92t8nM1WV4eZlNVXY34foHjOEkzEZa.jpg',
-        isPremium: false,
-        isStore: true,
-        description: 'Büro ləvazimatları mağazası, ofis avadanlıqları, dəftərlər, kağızlar və daha çox.',
-        location: 'Bakı şəhəri, Xətai rayonu',
-        coordinates: { lat: 40.378, lng: 49.8501 },
-        phone: '+994 50 789 12 34',
-        email: 'info@buroaz.az',
-        postedDate: '2023-08-15',
-    },
-    {
-        id: '5',
-        name: 'Texnika və Elektronika Mağazası',
-        price: 39999,
-        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
+        name: 'Bilyard Salonu',
+        price: 66000,
+        image: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/f8/88/d2/getlstd-property-photo.jpg?w=1200&h=-1&s=1',
         isPremium: true,
-        isStore: true,
-        description: 'Texnika və elektronika mağazası, telefonlar, televizorlar, kompüterlər və s.',
-        location: 'Bakı şəhəri, Nəsimi rayonu',
-        coordinates: { lat: 40.383, lng: 49.8612 },
-        phone: '+994 55 334 56 78',
-        email: 'info@texnikaelektronika.az',
-        postedDate: '2023-09-01',
+        isStore: false, // Explicitly set isStore to false
+        description: 'İşlək vəziyyətdə olan bilyard salonu satılır. 5 stol, bar və istirahət guşəsi mövcuddur.',
+        location: 'Bakı şəhəri, Nəsimi',
+        coordinates: { lat: 40.3893, lng: 49.8519 },
+        phone: '+994 50 999 99 99',
+        email: 'info@bilyardsalonu.az',
+        postedDate: '2023-06-18',
     },
-    {
-        id: '6',
-        name: 'Restoran və Kafeteriya',
-        price: 74999,
-        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
-        isPremium: true,
-        isStore: true,
-        description: 'Restoran və kafeteriya fəaliyyətə başlamaq üçün satışa çıxarılıb.',
-        location: 'Bakı şəhəri, Sabunçu rayonu',
-        coordinates: { lat: 40.5452, lng: 49.941 },
-        phone: '+994 50 654 78 90',
-        email: 'info@restorankafeteriya.az',
-        postedDate: '2023-09-20',
-    },
-    {
-        id: '7',
-        name: 'Avtomobil Satisı',
-        price: 18999,
-        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
-        isPremium: false,
-        isStore: false,
-        description: 'Satışda olan avtomobillər, təmirli və yaxşı vəziyyətdə.',
-        location: 'Bakı şəhəri, Suraxanı rayonu',
-        coordinates: { lat: 40.3757, lng: 49.8387 },
-        phone: '+994 50 123 12 34',
-        email: 'info@avtomobilsatisi.az',
-        postedDate: '2023-10-01',
-    },
-    {
-        id: '8',
-        name: 'Gözəllik və Sağlamlıq Mərkəzi',
-        price: 29999,
-        image: 'https://bzns.az/storage/announcements/preview/c7smrfqkpo5pIcXHJPr9A5I8oa0X25AkhWV9f08f.jpg',
-        isPremium: false,
-        isStore: true,
-        description: 'Gözəllik və sağlamlıq mərkəzi, spa, masaj və digər xidmətlər.',
-        location: 'Bakı şəhəri, Səbail rayonu',
-        coordinates: { lat: 40.3892, lng: 49.8767 },
-        phone: '+994 50 987 65 43',
-        email: 'info@gozelliksağlamlıq.az',
-        postedDate: '2023-10-15',
-    },
+    // Add more products as needed
 ];
 
-// TypeScript type for product
+const mapContainerStyle = {
+    width: '100%',
+    height: '500px',
+};
+
+// Updated Product type definition with all required fields
 interface Product {
     id: string;
     name: string;
@@ -147,6 +99,7 @@ interface ProductPageProps {
 
 export default function ProductPage({ params }: ProductPageProps) {
     const [isMounted, setIsMounted] = useState(false);
+
     const [product, setProduct] = useState<Product | null>(null);
     const [otherProducts, setOtherProducts] = useState<Product[]>([]);
 
@@ -154,6 +107,7 @@ export default function ProductPage({ params }: ProductPageProps) {
         if (params.id) {
             const foundProduct = products.find(p => p.id === params.id);
             if (foundProduct) {
+                foundProduct.isStore = foundProduct.isStore ?? false; // Default to false if undefined
                 setProduct(foundProduct);
                 setOtherProducts(products.filter(p => p.id !== params.id).slice(0, 4));
             } else {
@@ -164,7 +118,7 @@ export default function ProductPage({ params }: ProductPageProps) {
     }, [params.id]);
 
     if (!isMounted || !product) {
-        return null; // Optionally, show a loading indicator
+        return null; // Optionally, return a loading indicator
     }
 
     return (
@@ -177,48 +131,89 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* Left Column - Product Image and Description */}
                 <div className="md:col-span-2">
                     <div className="relative">
-                        <Image src={product.image} alt={product.name} width={800} height={450} className="rounded-lg object-cover w-full h-[450px] mb-6" />
+                        <Image
+                            src={product.image}
+                            alt={product.name}
+                            width={500} // Reduced the width from 600 to 500
+                            height={450} // Keeping the height same to make them consistent
+                            className="rounded-lg object-cover w-[800px] h-[450px] mb-6"
+                        />
                     </div>
-                    <div className="mt-6 text-center">
-                        <h2 className="text-2xl font-semibold mb-2">Qiymət: {product.price} AZN</h2>
-                        <p className="text-gray-700 mb-6">{product.description}</p>
+                    <div className="mt-6">
+                        <h2 className="text-2xl font-semibold mb-2 text-center">Qiymət: {product.price} AZN</h2>
+                        <p className="text-gray-700 mb-6 text-center">{product.description}</p>
                     </div>
                 </div>
 
-                {/* Right Column - Contact Information */}
+                {/* Right Column - Contact Information and Features */}
                 <div>
-                    <Card className="mb-6 shadow-lg rounded-lg">
-                        <CardContent className="p-6">
-                            <h3 className="text-xl font-semibold mb-6 text-center">Əlaqə Məlumatları</h3>
-                            <div className="space-y-4">
+                    {/* Add Image Above Əlaqə Məlumatları */}
+                    <div className="mb-3">
+                        <Image
+                            src={scoreimage} // Replace with your image URL
+                            alt="Image description"
+                            width={400}
+                            height={250}
+                            className="rounded-lg object-cover"
+                        />
+                    </div>
+
+                    {/* Əlaqə Məlumatları */}
+                    <Card className="mb-5 bg-white shadow-lg rounded-lg overflow-hidden">
+                        <CardContent className="p-0">
+                            {' '}
+                            {/* Reduced padding to decrease height */}
+                            <h3 className="text-xl font-semibold mb-2 text-center text-gray-800">Əlaqə Məlumatları</h3> {/* Adjusted margin */}
+                            <div className="space-y-1">
                                 <div className="flex items-center space-x-3">
                                     <MapPin className="h-5 w-5 text-gray-600" />
-                                    <span className="font-medium">{product.location}</span>
+                                    <div className="flex-1">
+                                        <span className="font-medium">Ünvan:</span>
+                                        <p className="text-gray-700">{product.location}</p>
+                                    </div>
                                 </div>
-                                <div className="flex items-center space-x-3">
+                                <div className="flex items-center space-x-2">
                                     <Phone className="h-5 w-5 text-gray-600" />
-                                    <span className="font-medium">{product.phone}</span>
+                                    <div className="flex-1">
+                                        <span className="font-medium">Telefon:</span>
+                                        <p className="text-gray-700">{product.phone}</p>
+                                    </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <Mail className="h-5 w-5 text-gray-600" />
-                                    <span className="font-medium">{product.email}</span>
+                                    <div className="flex-1">
+                                        <span className="font-medium">E-poçt:</span>
+                                        <p className="text-gray-700">{product.email}</p>
+                                    </div>
                                 </div>
                                 <div className="flex items-center space-x-3">
                                     <Calendar className="h-5 w-5 text-gray-600" />
-                                    <span className="font-medium">{product.postedDate}</span>
+                                    <div className="flex-1">
+                                        <span className="font-medium">Elan tarixi:</span>
+                                        <p className="text-gray-700">{product.postedDate}</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="mt-6">
-                                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700">Əlaqə saxla</Button>
+                            <div className="mt-0.5">
+                                <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-200 py-1">Əlaqə saxla</Button>
                             </div>
                         </CardContent>
                     </Card>
+
+                    {/* Xüsusiyyətlər */}
+                    <div className="mb-6">
+                        <h3 className="text-xl font-semibold mb-2 text-center">Xüsusiyyətlər</h3>
+                        <ul className="list-disc list-inside space-y-1 text-center">
+                            <li>{product.isPremium ? 'Premium Elan' : 'Standart Elan'}</li>
+                            <li>{product.isStore ? 'Mağaza' : 'Fərdi Satıcı'}</li>
+                        </ul>
+                    </div>
                 </div>
 
-                {/* Map Section */}
-                <div className="md:col-span-3 h-[300px] rounded-lg overflow-hidden mb-6">
+                {/* Map Section - Full Width Below */}
+                <div className="md:col-span-3 h-[400px] rounded-lg overflow-hidden mb-6">
                     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
-                        <GoogleMap mapContainerStyle={{ width: '100%', height: '100%' }} center={product.coordinates} zoom={15}>
+                        <GoogleMap mapContainerStyle={mapContainerStyle} center={product.coordinates} zoom={15}>
                             <MarkerF position={product.coordinates} />
                         </GoogleMap>
                     </LoadScript>
@@ -228,14 +223,20 @@ export default function ProductPage({ params }: ProductPageProps) {
             {/* Other Products */}
             <div className="mt-12">
                 <h3 className="text-2xl font-semibold mb-6 text-center">Digər Elanlar</h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {otherProducts.map(other => (
-                        <div key={other.id} className="border rounded-lg shadow hover:shadow-lg transition">
-                            <Image src={other.image} alt={other.name} width={500} height={300} className="w-full h-[200px] object-cover" />
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {otherProducts.map(otherProduct => (
+                        <div key={otherProduct.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                            <Image
+                                src={otherProduct.image}
+                                alt={otherProduct.name}
+                                width={500} // Same width as the main product image
+                                height={300} // Same height ratio
+                                className="w-full h-[200px] object-cover"
+                            />
                             <div className="p-4">
-                                <h4 className="text-lg font-semibold">{other.name}</h4>
-                                <p className="text-gray-500">{other.location}</p>
-                                <p className="text-gray-700">{other.price} AZN</p>
+                                <h4 className="text-lg font-semibold">{otherProduct.name}</h4>
+                                <p className="text-gray-500">{otherProduct.location}</p>
+                                <p className="text-gray-700">{otherProduct.price} AZN</p>
                             </div>
                         </div>
                     ))}
