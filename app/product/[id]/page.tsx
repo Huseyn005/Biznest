@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { notFound } from 'next/navigation';
 
-import Image from "next/legacy/image";
+import Image from 'next/legacy/image';
 import { MapPin, Phone, Mail, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -163,7 +163,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     const [otherProducts, setOtherProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        
         if (params.id) {
             console.log('Searching for product with id:', params.id);
             console.log('Available products:', products);
@@ -275,7 +274,7 @@ export default function ProductPage({ params }: ProductPageProps) {
 
                 {/* Map Section - Full Width Below */}
                 <div className="md:col-span-3 h-[400px] rounded-lg overflow-hidden mb-6">
-                    <LoadScript googleMapsApiKey="AIzaSyDov61U_ntrpE8N7dfJ5ARWbKIeMwqFIjw">
+                    <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                         <GoogleMap mapContainerStyle={mapContainerStyle} center={product.coordinates} zoom={15}>
                             <MarkerF position={product.coordinates} />
                         </GoogleMap>
